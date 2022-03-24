@@ -2,9 +2,9 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Dependencies
 
-In the project directory, you can run:
+The app uses [Tailwind](https://tailwindcss.com/docs/guides/create-react-app) & [Daisy UI](https://daisyui.com/)
 
 ### `npm start`
 

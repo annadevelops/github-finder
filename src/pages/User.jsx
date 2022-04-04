@@ -3,15 +3,17 @@ import { useContext, useEffect } from "react"
 import { useParams, Link } from "react-router-dom"
 import GithubContext from "../context/github/GithubContext"
 import Spinner from '../components/layout/Spinner'
+import RepoList from '../components/repos/RepoList'
 
 function User() {
-    const {getUser, user, loading} = useContext(GithubContext)
+    const {getUser, user, loading, getUserRepos} = useContext(GithubContext)
 
     //using useParams to get the params in the URL of this page - then params.login underneath to get that specific param
     const params = useParams()
 
     useEffect(() => {
         getUser(params.login)
+        getUserRepos(params.login)
     }, [])
 
     //destructuring json object get back from api request into information needed
@@ -162,7 +164,7 @@ function User() {
             </div>
           </div>
         </div>
-
+      <RepoList />
       </div>
     </>
   )

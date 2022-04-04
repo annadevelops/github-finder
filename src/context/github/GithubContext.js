@@ -18,6 +18,7 @@ export const GithubProvider = ({
     const initialState = {
         users: [],
         user: {},
+        repos: [],
         loading: false
     }
 
@@ -76,6 +77,23 @@ export const GithubProvider = ({
         })
     }
 
+    const getUserRepos = async (login) => {
+        setLoading()
+        // The URLSearchParams interface defines utility methods to work with the query string of a URL.
+       
+        const response = await fetch(`${GITHUB_URL}/users/${login}/repos`, {
+            headers: {
+                'Authorization': `token ${GITHUB_TOKEN}`
+            }
+        })
+        const data = await response.json()
+
+        dispatch({
+            type: 'GET_USER_REPOS',
+            payload: data, // 'payload' == convention way to name the data that is sent to the reducer for the specific type
+        })
+    }
+
     //Set Loading state
     const setLoading = () => 
         dispatch({
@@ -94,9 +112,11 @@ export const GithubProvider = ({
             users: state.users, // Get users from the state above in the reducer when initialised, and pass it to the component array.
             loading: state.loading,
             user: state.user,
+            repos: state.repos,
             getUsers,
             searchUsers,
             getUser,
+            getUserRepos,
             clearResults,
         }
     } > {

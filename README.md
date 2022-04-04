@@ -2,6 +2,10 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). The App was deployed with Vercel and is running at https://github-finder-annadevs.vercel.app/
 
+
+https://user-images.githubusercontent.com/97704332/161534676-11f4c2f6-5142-45b9-8cc2-13036c08030b.mp4
+
+
 ## Dependencies
 
 The app uses [Tailwind](https://tailwindcss.com/docs/guides/create-react-app) & [Daisy UI](https://daisyui.com/)

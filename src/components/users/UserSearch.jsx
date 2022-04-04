@@ -3,7 +3,7 @@ import GithubContext from "../../context/GithubContext"
 
 function UserSearch() {
     const [text, setText] = useState('')
-    const {users, searchUsers} = useContext(GithubContext)
+    const {users, searchUsers, clearResults} = useContext(GithubContext)
 
     const handleChange = (e) => setText(e.target.value)
     const handleSubmit = (e) => {
@@ -36,7 +36,7 @@ return (
     {/* {check only if users results are shown, so length > 0 then show the clear button.} */}
     { users.length > 0 && (
     <div>
-        <button className="btn btn-ghost btn-lg">
+        <button className="btn btn-ghost btn-lg" onClick={clearResults}>
             Clear
         </button>
     </div>

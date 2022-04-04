@@ -64,6 +64,11 @@ export const GithubProvider = ({
             type: 'SET_LOADING'
         })
     
+        //clear users from state
+    const clearResults = () => 
+        dispatch({
+            type:'CLEAR_RESULTS'
+        })
 
     return <GithubContext.Provider
     value = {
@@ -71,7 +76,8 @@ export const GithubProvider = ({
             users: state.users, // Get users from the state above in the reducer when initialised, and pass it to the component array.
             loading: state.loading,
             getUsers,
-            searchUsers
+            searchUsers,
+            clearResults,
         }
     } > {
         children

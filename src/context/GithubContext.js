@@ -17,13 +17,15 @@ export const GithubProvider = ({
     // Initialize the state for the reducer
     const initialState = {
         users: [],
-        loading: true
+        loading: false
     }
 
     // Initialise the reducer, takes in the reducer and the initial state. 'dispatch' similar to 'setState', can be called anything but convention to called 'dispatch'. It's a function to set a type for the reducer action
     const [state, dispatch] = useReducer(githubReducer, initialState)
 
+    //Test function to get all users
     const getUsers = async () => {
+        setLoading()
         const response = await fetch(GITHUB_URL + '/users', {
             headers: {
                 'Authorization': `token ${GITHUB_TOKEN}`
@@ -37,6 +39,13 @@ export const GithubProvider = ({
         })
     }
 
+    //Set Loading state
+    const setLoading = () => 
+        dispatch({
+            type: 'SET_LOADING'
+        })
+    
+
     return <GithubContext.Provider
     value = {
         {
@@ -46,7 +55,7 @@ export const GithubProvider = ({
         }
     } > {
         children
-    } </GithubContext.Provider>
+    } < /GithubContext.Provider>
 }
 
 export default GithubContext

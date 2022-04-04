@@ -1,8 +1,9 @@
 import {
     createContext,
-    useState
+    useReducer
 } from "react";
 
+import githubReducer from "./GithubReducer";
 
 const GithubContext = createContext()
 
@@ -12,31 +13,40 @@ const GITHUB_TOKEN = process.env.REACT_APP_GITHUB_TOKEN
 export const GithubProvider = ({
     children
 }) => {
-    const [users, setUsers] = useState([])
-    const [loading, setLoading] = useState(true)
 
+    // Initialize the state for the reducer
+    const initialState = {
+        users: [],
+        loading: true
+    }
 
-  const getUsers = async () => {
-    const response = await fetch(GITHUB_URL + '/users', {
-      headers: {
-        'Authorization': `token ${GITHUB_TOKEN}` 
-      }
-    })
+    // Initialise the reducer, takes in the reducer and the initial state. 'dispatch' similar to 'setState', can be called anything but convention to called 'dispatch'. It's a function to set a type for the reducer action
+    const [state, dispatch] = useReducer(githubReducer, initialState)
 
-    const data = await response.json()
-    setUsers(data)
-    setLoading(false)
-  }
+    const getUsers = async () => {
+        const response = await fetch(GITHUB_URL + '/users', {
+            headers: {
+                'Authorization': `token ${GITHUB_TOKEN}`
+            }
+        })
+        const data = await response.json()
 
-  return <GithubContext.Provider
-    value={{
-        users,
-        loading,
-        getUsers
-    }}>
-      {children}
-  </GithubContext.Provider>
+        dispatch({
+            type: 'GET_USERS',
+            payload: data, // 'payload' == convention way to name the data that is sent to the reducer for the specific type
+        })
+    }
 
+    return <GithubContext.Provider
+    value = {
+        {
+            users: state.users, // Get users from the state above in the reducer when initialised, and pass it to the component array.
+            loading: state.loading,
+            getUsers
+        }
+    } > {
+        children
+    } </GithubContext.Provider>
 }
 
 export default GithubContext
